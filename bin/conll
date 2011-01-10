@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'commander/import'
+require 'conll'
+
+program :version, Conll::VERSION
+program :description, 'Do stuff with CoNLL dependency treebanks'
+
+command :create do |c|
+  c.syntax = 'conll create [options]'
+  c.summary = 'Create a CoNLL treebank'
+  c.description = 'Creates a CoNLL treebank from the specified input files'
+  c.example 'description', 'command example'
+  c.option '--forms', 'File containing word forms'
+  c.action do |args, options|
+    treebank = Conll::Corpus.new
+    File.foreach(options.forms) do |line|
+      sentence = Conll::Sentence.new
+      line.chomp.split(' ').each do |form|
+        sentence << Conll::Token.new(:form => form)        
+      end
+      treebank << sentence
+    end
+    puts treebank
+  end
+end
+
