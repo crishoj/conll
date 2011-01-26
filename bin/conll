@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
 require 'rubygems'
 require 'commander/import'
 require 'conll'
@@ -25,4 +24,3 @@ command :create do |c|
     puts treebank
   end
 end
-

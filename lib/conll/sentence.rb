@@ -33,6 +33,7 @@ module Conll
 
     def <<(token)
       token.sentence = self
+      token.id ||= @tokens.count+1 
       @tokens << token
     end
 
