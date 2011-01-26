@@ -9,7 +9,9 @@ module Conll
       Corpus.new(file) do |corpus|
         File.new(file).each("\n\n") do |part|
           lines = part.split(/\n/)
-          corpus << Conll::Sentence.parse(lines)
+          sentence = Conll::Sentence.parse(lines)
+          yield sentence if block_given?
+          corpus << sentence
         end
       end
     end
