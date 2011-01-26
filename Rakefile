@@ -13,4 +13,5 @@ Echoe.new 'conll', Conll::VERSION do |gem|
   gem.author = "Christian Rishøj"
   gem.runtime_dependencies << 'commander'
   gem.development_dependencies << 'rspec'
+  gem.ignore_pattern = ['nbproject/**/*']
 end
