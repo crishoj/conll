@@ -22,6 +22,7 @@ module Conll
       super(*vals)
       # Split features
       @features = vals[5].split(/\|/) unless vals[5].nil?
+      yield self if block_given?
     end
 
     # Gives the base-0 index of this token into the sentence
