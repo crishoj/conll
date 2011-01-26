@@ -11,13 +11,16 @@ command :create do |c|
   c.summary = 'Create a CoNLL treebank'
   c.description = 'Creates a CoNLL treebank from the specified input files'
   c.example 'description', 'command example'
-  c.option '--forms', 'File containing word forms'
+  c.option '--forms FILE', String, 'File containing word forms'
   c.action do |args, options|
     treebank = Conll::Corpus.new
     File.foreach(options.forms) do |line|
       sentence = Conll::Sentence.new
-      line.chomp.split(' ').each do |form|
-        sentence << Conll::Token.new(:form => form)        
+      line.chomp.split('|').each do |form|
+        next if form == ' '
+        sentence << Conll::Token.new do |tok| 
+          tok.form = form
+        end
       end
       treebank << sentence
     end
